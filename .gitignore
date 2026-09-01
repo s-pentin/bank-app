@@ -40,4 +40,3 @@ out/
 ### Environment / secrets ###
 .env
 .env.local
-resources/application.properties

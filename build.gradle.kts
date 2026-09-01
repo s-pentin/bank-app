@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.springframework.boot") version "4.1.1" apply false
+    id("org.springframework.boot") version "3.3.4" apply false
     id("io.spring.dependency-management") version "1.1.7" apply false
 }
 
@@ -22,7 +22,7 @@ subprojects {
 
     configure<io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension> {
         imports {
-            mavenBom("org.springframework.cloud:spring-cloud-dependencies:2025.1.3")
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.6")
         }
     }
 
