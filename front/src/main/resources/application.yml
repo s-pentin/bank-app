@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: front
+  config:
+    import: "optional:consul:"
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: bank-front
+            client-authentication-method: none
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+            scope: openid, accounts.read, accounts.write, cash.write, transfer.write
+        provider:
+          keycloak:
+            issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8080/realms/bank}
+
+server:
+  port: 8080
+
+app:
+  gateway:
+    base-url: ${GATEWAY_BASE_URL:http://localhost:8090}
