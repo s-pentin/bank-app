@@ -24,6 +24,9 @@ RUN --mount=type=cache,target=/root/.gradle/caches/modules-2 \
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
+RUN groupadd --system appuser && useradd --system --gid appuser appuser
 COPY --from=builder /app/cash-service/build/libs/*.jar app.jar
+USER appuser
+
 EXPOSE 8082
 CMD ["java", "-jar", "app.jar"]
