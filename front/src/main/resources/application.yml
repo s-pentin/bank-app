@@ -15,7 +15,7 @@ spring:
             scope: openid, accounts.read, accounts.write, cash.write, transfer.write
         provider:
           keycloak:
-            issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8080/realms/bank}
+            issuer-uri: ${KEYCLOAK_ISSUER_URI:http://keycloak:8180/realms/bank}
 
 server:
   port: 8080

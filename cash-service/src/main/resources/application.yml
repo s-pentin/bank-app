@@ -22,7 +22,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8080/realms/bank}
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://keycloak:8180/realms/bank}
       client:
         registration:
           cash-service:
@@ -34,7 +34,7 @@ spring:
               - notifications.write
         provider:
           cash-service:
-            token-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8080/realms/bank}/protocol/openid-connect/token
+            token-uri: ${KEYCLOAK_ISSUER_URI:http://keycloak:8180/realms/bank}/protocol/openid-connect/token
 
 server:
   port: 8082
