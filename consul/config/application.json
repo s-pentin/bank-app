@@ -1,0 +1,32 @@
+[
+  {
+    "key": "config/application/data/resilience4j.circuitbreaker.instances.accounts.failure-rate-threshold",
+    "flags": 0,
+    "value": "NTA="
+  },
+  {
+    "key": "config/application/data/resilience4j.circuitbreaker.instances.accounts.sliding-window-size",
+    "flags": 0,
+    "value": "MTA="
+  },
+  {
+    "key": "config/application/data/resilience4j.circuitbreaker.instances.accounts.minimum-number-of-calls",
+    "flags": 0,
+    "value": "NQ=="
+  },
+  {
+    "key": "config/application/data/resilience4j.circuitbreaker.instances.accounts.wait-duration-in-open-state",
+    "flags": 0,
+    "value": "MTBz"
+  },
+  {
+    "key": "config/application/data/app.outbox.poll-interval",
+    "flags": 0,
+    "value": "UFQ1Uw=="
+  },
+  {
+    "key": "config/application/data/app.outbox.max-attempts",
+    "flags": 0,
+    "value": "NQ=="
+  }
+]
