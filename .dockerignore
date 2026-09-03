@@ -1,0 +1,30 @@
+# VCS
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.idea
+*.iml
+
+# Gradle build artifacts (regenerated inside the image)
+.gradle
+build
+**/build
+
+# Secrets — never bake real credentials into images
+.env
+
+# Infra files (mounted separately by docker-compose, not needed at build/runtime)
+docker-compose.yml
+init-schemas.sql
+keycloak
+consul
+.claude
+
+# Docs / misc
+*.md
+HELP.md
+
+# OS
+.DS_Store
