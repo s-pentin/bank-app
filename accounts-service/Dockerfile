@@ -14,16 +14,16 @@ COPY front/build.gradle.kts front/
 
 RUN --mount=type=cache,target=/root/.gradle/caches/modules-2 \
     --mount=type=cache,target=/root/.gradle/wrapper/dists \
-    ./gradlew :front:dependencies --no-daemon > /dev/null 2>&1 || true
+    ./gradlew :accounts-service:dependencies --no-daemon > /dev/null 2>&1 || true
 
 COPY . .
 
 RUN --mount=type=cache,target=/root/.gradle/caches/modules-2 \
     --mount=type=cache,target=/root/.gradle/wrapper/dists \
-    ./gradlew :front:bootJar --no-daemon
+    ./gradlew :accounts-service:bootJar --no-daemon
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
-COPY --from=builder /app/front/build/libs/*.jar app.jar
-EXPOSE 8080
+COPY --from=builder /app/accounts-service/build/libs/*.jar app.jar
+EXPOSE 8081
 CMD ["java", "-jar", "app.jar"]
