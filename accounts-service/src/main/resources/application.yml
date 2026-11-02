@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: accounts-service
+  config:
+    import: "optional:consul:"
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/bank?currentSchema=accounts
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:password}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    schemas: accounts
+  cloud:
+    consul:
+      host: ${CONSUL_HOST:localhost}
+      port: 8500
+      discovery:
+        service-name: accounts-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://keycloak:8180/realms/bank}
+      client:
+        registration:
+          notifications-client:
+            client-id: accounts-service
+            client-secret: ${ACCOUNTS_CLIENT_SECRET:accounts-service-secret}
+            authorization-grant-type: client_credentials
+            scope: notifications.write
+        provider:
+          notifications-client:
+            token-uri: ${KEYCLOAK_ISSUER_URI:http://keycloak:8180/realms/bank}/protocol/openid-connect/token
+
+server:
+  port: 8081
+
+app:
+  outbox:
+    poll-interval: PT5S
+    max-attempts: 5
+  notifications:
+    base-url: http://notifications-service

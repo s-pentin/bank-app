@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Банк</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+
+    <header class="header">
+        <h1>Банк</h1>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-outline">Выйти</button>
+        </form>
+    </header>
+
+    <p th:if="${success}" class="flash success" th:text="${success}"></p>
+    <p th:if="${error}" class="flash error" th:text="${error}"></p>
+
+    <section class="card">
+        <h2>Мой аккаунт</h2>
+        <form th:action="@{/account}" method="post">
+            <div class="form-row">
+                <div class="field">
+                    <label for="lastName">Фамилия</label>
+                    <input type="text" id="lastName" name="lastName" th:value="${account.lastName}" required>
+                </div>
+                <div class="field">
+                    <label for="firstName">Имя</label>
+                    <input type="text" id="firstName" name="firstName" th:value="${account.firstName}" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="field">
+                    <label for="birthDate">Дата рождения</label>
+                    <input type="date" id="birthDate" name="birthDate" th:value="${account.birthDate}" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <span>Баланс: <span class="balance" th:text="${account.balance}">0</span></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Внесение и снятие</h2>
+        <form th:action="@{/cash/deposit}" method="post" class="form-row">
+            <div class="field">
+                <label for="depositAmount">Сумма пополнения</label>
+                <input type="number" id="depositAmount" name="amount" step="0.01" min="0.01" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Положить</button>
+        </form>
+        <form th:action="@{/cash/withdraw}" method="post" class="form-row" style="margin-bottom: 0">
+            <div class="field">
+                <label for="withdrawAmount">Сумма снятия</label>
+                <input type="number" id="withdrawAmount" name="amount" step="0.01" min="0.01" required>
+            </div>
+            <button type="submit" class="btn btn-danger">Снять</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Перевод</h2>
+        <form th:action="@{/transfer}" method="post" class="form-row" style="margin-bottom: 0">
+            <div class="field">
+                <label for="toLogin">Получатель</label>
+                <select id="toLogin" name="toLogin" required>
+                    <option value="">Выберите получателя</option>
+                    <option th:each="a : ${accounts}"
+                            th:value="${a.login}"
+                            th:text="${a.firstName} + ' ' + ${a.lastName} + ' (' + ${a.login} + ')'"></option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="transferAmount">Сумма</label>
+                <input type="number" id="transferAmount" name="amount" step="0.01" min="0.01" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Перевести</button>
+        </form>
+    </section>
+
+</div>
+</body>
+</html>

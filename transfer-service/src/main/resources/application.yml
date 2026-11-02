@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: transfer-service
+  config:
+    import: "optional:consul:"
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/bank?currentSchema=transfer
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:password}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    schemas: transfer
+  cloud:
+    consul:
+      host: ${CONSUL_HOST:localhost}
+      port: 8500
+      discovery:
+        service-name: transfer-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://keycloak:8180/realms/bank}
+      client:
+        registration:
+          transfer-service:
+            client-id: transfer-service
+            client-secret: ${TRANSFER_CLIENT_SECRET:transfer-service-secret}
+            authorization-grant-type: client_credentials
+            scope:
+              - accounts.internal
+              - notifications.write
+        provider:
+          transfer-service:
+            token-uri: ${KEYCLOAK_ISSUER_URI:http://keycloak:8180/realms/bank}/protocol/openid-connect/token
+
+server:
+  port: 8083
+
+app:
+  accounts:
+    base-url: http://accounts-service
+  notifications:
+    base-url: http://notifications-service
+  outbox:
+    poll-interval: PT5S
+    max-attempts: 5
